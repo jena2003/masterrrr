@@ -36,8 +36,11 @@ export default {
     SignIn() {
      auth(this.email,this.password).then((response)=>{
        this.user=response.data
-        console.log(this.user)
-        this.$store.commit('set',{user:this.user})
+       if (this.store.commit('set',{user:this.user}))
+       {
+console.log(this.user)
+       }
+        
         if (this.user){
           window.location.href = 'http://localhost:8080/#/EditProfileScreen';    
         }

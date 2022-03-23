@@ -12,11 +12,12 @@
           <img class="profile__avatar" src="../assets/img/default-user.jpg">
           <div class="edit-photo">Изменить аватар</div>
         </div>
-        <div class="profile__main-data">
+        <div class="profile__main-data" v-for="item in AUTHOR">
           <input
             class="profile__input"
             placeholder="Имя"
-           v-bind:value="name" @input="name = $event.target.value"
+           v-bind:value="name" @input="name = $event.target.value" 
+           
           />
           <input
             class="profile__input"
@@ -101,6 +102,8 @@
 import store from '../store.js'
 import Footer from './Footer.vue'
 import {addAuthor} from "@/api/authorAPI"
+import {mapGetters} from 'vuex';
+
 
 export default {
   name: 'EditProfileScreen',
@@ -125,24 +128,28 @@ export default {
       }
     }
   },
+  computed : {
+  ...mapGetters(['AUTHOR']),
+  // Другие вычисляемые свойства
+},
   methods: {
      editUser() {
      addAuthor(
-       this.name,
-       this.surname,
-       this.patronymic,
-       this.city,
+       this.name ,
+       this.surname ,
+       this.patronymic ,
+       this.city ,
        this.adress,
-       this.postecode,
-       this.education,
-       this.specialityCode,
-       this.work,
-       this.position,
-       this.academicDegree
+       this.postecode ,
+       this.education ,
+       this.specialityCode ,
+       this.work ,
+       this.position ,
+       this.academicDegree 
         ).then((response)=>{
+          console.log(response.data)
           this.author=response.data
-        console.log(this.author)
-        this.$store.commit('set', {author: this.author})
+        this.store.dispatch('SET_AUTHOR', {author: this.author})
         if (response.data){
           window.location.href = 'http://localhost:8080/#/MyProfileScreen';
         }
@@ -262,4 +269,3 @@ export default {
     }
   }
 </style>
-

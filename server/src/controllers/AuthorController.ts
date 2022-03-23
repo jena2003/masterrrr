@@ -19,8 +19,7 @@ export default class AuthorController {
     })
     }catch(err){
       return res.send(err);
-    }
-   
+    } 
    let author = new Author();
    console.log(userLink)
     author = Object.assign(author, authorData);
@@ -29,8 +28,8 @@ export default class AuthorController {
       return res.status(400).send(errors);
     }
     const authorRepo = getRepository(Author);
-    
-    author.user = userLink
+
+    author.user = userLink;
     try {
       author = await authorRepo.save(author);
     } catch (error) {

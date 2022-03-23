@@ -14,7 +14,7 @@ export const addAuthor = async(
   academicDegree
   ) => {
     try {
-        const response = await $api.post('/author/:id' + this.$store.state.user,
+        const response = await $api.post('/author' + this.$store.state.user,
         {
           name,
           surname,
